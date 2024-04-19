@@ -160,7 +160,7 @@ const skill_details = [
 ]
 //https://mdbcdn.b-cdn.net/img/new/standard/city/042.webp
 function createSkillcard(skill_img, skill_name, skill_detail) {
-  const skill_card = document.createElement('div');
+  const skill_card = document.createElement('li');
   const skill_thumbnail_container = document.createElement('div');
   const skill_thumbnail = document.createElement('img');
   const skill_desc_container = document.createElement('div');
@@ -196,10 +196,10 @@ function populateSkillCard() {
   let stored_skill_card = sessionStorage.getItem('skill_array')
   if(stored_skill_card){
     stored_skill_card =stored_skill_card.split(',')
-    CONSTANT.CARD_COUNT=stored_skill_card.length;
-    log("CONSTANT.CARD_COUNT > 0",CONSTANT.CARD_COUNT )
+    CONSTANT.SKILL_CARD_COUNT=stored_skill_card.length;
+    log("CONSTANT.SKILL_CARD_COUNT > 0",CONSTANT.SKILL_CARD_COUNT )
   }
-  if (CONSTANT.CARD_COUNT > 0) {
+  if (CONSTANT.SKILL_CARD_COUNT > 0) {
 
     // log('stored_skill_card', stored_skill_card)
     stored_skill_card.forEach((item,index) => {
@@ -253,10 +253,11 @@ const project_details = [
   Ut similique nobis adipisci, impedit
   Numquam ipsa sit perspiciatis! Corporis error, voluptates quas sapiente, commodi`,
     project_img: "Images/atal_icon.png",
-    project_tech_icons: ["Images/tech-icons/rn.png", "Images/tech-icons/php.png", "Images/tech-icons/dot-net.png"]
+    // project_tech_icons: ["Images/tech-icons/rn.png", "Images/tech-icons/php.png", "Images/tech-icons/dot-net.png"]
+    project_tech_icons: ["Images1", "Images2", "Images3", "Images2", "Images3", "Images2", "Images3", "Images2", "Images3"]
   },
   {
-    title: "EV-YATRA",
+    title: "EV-YATRAqwertyuioplkjhgfdsazxcvbnm",
     project_details: `Lutem architecto animi illum facere, dicta aspernatur aliquid saepe vero
   consequuntur
   voluptas eum commodi, repudiandae sequi veniam eveniet nisi veritatis magni
@@ -265,7 +266,9 @@ const project_details = [
   Ut similique nobis adipisci, impedit
   Numquam ipsa sit perspiciatis! Corporis error, voluptates quas sapiente, commodi`,
     project_img: "Images/beev.png",
-    project_tech_icons: ["Images/tech-icons/rn.png", "Images/tech-icons/php.png", "Images/tech-icons/dot-net.png"]
+    // project_tech_icons: ["Images/tech-icons/rn.png", "Images/tech-ic ons/php.png", "Images/tech-icons/dot-net.png"]
+    project_tech_icons: ["Images1", "Images2", "Images3"]
+
   },
   {
     title: "JREDA",
@@ -277,7 +280,9 @@ const project_details = [
   Ut similique nobis adipisci, impedit
   Numquam ipsa sit perspiciatis! Corporis error, voluptates quas sapiente, commodi`,
     project_img: "Images/jreda_icon.png",
-    project_tech_icons: ["Images/tech-icons/rn.png", "Images/tech-icons/php.png", "Images/tech-icons/dot-net.png"]
+    // project_tech_icons: ["Images/tech-icons/rn.png", "Images/tech-icons/php.png", "Images/tech-icons/dot-net.png"]
+    project_tech_icons: ["Images1", "Images2", "Images3"]
+
   },
   {
     title: "JREDA",
@@ -319,9 +324,9 @@ window.addEventListener('resize', function() {
 
 function createProjectCard(project_detail) {
 
-  const project_card_container = document.createElement('div');
+  const project_card_container = document.createElement('li');
   // project_card_container.classList.add('col-md-3', 'project-container');
-  project_card_container.classList.add('col-md-3', 'project-container');
+  project_card_container.classList.add('col-md-3','project-container');
 
   const card_container = document.createElement('div');
   card_container.classList.add('card-container');
@@ -342,26 +347,30 @@ function createProjectCard(project_detail) {
   title_icon_desc.appendChild(project_img);
 
   const title_tech_container = document.createElement('div');
-  title_tech_container.classList.add("title-tech", 'container');
+  title_tech_container.classList.add("title-tech",);
   title_icon_desc.appendChild(title_tech_container);
 
   const project_name = document.createElement('h3');
-  project_name.classList.add("w-100", "text-center")
+  project_name.classList.add( "text-center")
   project_name.textContent = project_detail.title;
   title_tech_container.appendChild(project_name);
 
-  const project_tech_container = document.createElement('div');
-  project_tech_container.classList.add("d-flex", "align-items-center")
-
+  const project_tech_container = document.createElement('ul');
+  project_tech_container.classList.add("d-flex", "align-items-center",'project-tech-container')
+  project_tech_container.style.listStyleType='none';
+  project_tech_container.style.overflow='auto';
+  project_tech_container.style.height='40px';
+  project_tech_container.style.padding='0'
   title_tech_container.appendChild(project_tech_container);
 
   const tech_used = project_detail.project_tech_icons.forEach(img => {
-    const tech_img = document.createElement('img');
+    const tech_img = document.createElement('li');
     tech_img.classList.add('tech-icons')
-    tech_img.src = img;
+    // tech_img.src = img;
+    tech_img.textContent = img;
     project_tech_container.appendChild(tech_img);
   })
-
+/**<ul class="d-flex align-items-center project-tech-container" style="height: 30px; list-style-type: none; overflow-y: auto; overflow: scroll;"><li class="tech-icons">Images1</li><li class="tech-icons">Images2</li><li class="tech-icons">Images3</li><li class="tech-icons">Images2</li><li class="tech-icons">Images3</li></ul> */
 
 
   const project_details = document.createElement('div');
@@ -389,7 +398,7 @@ function populateProjectCard() {
   heading.textContent = 'Projects';
   heading_container.appendChild(heading);
 
-  const heading_card_container = document.createElement('div');
+  const heading_card_container = document.createElement('ul');
   heading_card_container.classList.add('project-card-container', 'mt-5', "list-group", "list-group-horizontal-lg");
 
   project_details.forEach(detail => {
@@ -564,6 +573,7 @@ async function fetchSvg(prefix, icon) {
 
 var next1 = document.getElementById('form_1_next')
 var next2 = document.getElementById('form_2_next')
+var next3 = document.getElementById('form_3_next')
 
 var previous2 = document.getElementById('form_2_previous')
 var form_title;
@@ -573,18 +583,19 @@ next1.onclick = function () {
   form_title = document.getElementById('modal-title');
   form_title.textContent = "Skills details";
 }
+
 next2.onclick = function () {
   let skill = getfromSession("skill_array")
   // log("skill", skill, skill.split(',').length)
   if (skill) {
-    CONSTANT.CARD_COUNT = parseInt(skill.split(',').length);
+    CONSTANT.SKILL_CARD_COUNT = parseInt(skill.split(',').length);
   }
-  if (CONSTANT.CARD_COUNT > 0) {
+  if (CONSTANT.SKILL_CARD_COUNT > 0) {
     //======== you can also add custom component to swal by uncommenting the following code.
     //     var wrapper = document.createElement('h1');
     //     wrapper.innerHTML = 'this is bold text';
     swal({
-      'title': `You have added ${CONSTANT.CARD_COUNT} cards want to proceed further`,
+      'title': `You have added ${CONSTANT.SKILL_CARD_COUNT} cards want to proceed further`,
       'icon': 'warning',
       // 'content': {
       //   'element':wrapper,
@@ -620,7 +631,10 @@ next2.onclick = function () {
       icon: 'error'
     })
 
-    // remove the code 
+    // remove the code from below
+    form_2(); change_form('form_2', 'next')
+    form_title = document.getElementById('modal-title');
+    form_title.textContent = "Project details";
   }
 
 }
@@ -629,6 +643,61 @@ previous2.onclick = function () {
   form_2(); change_form('form_2', 'previous')
   form_title = document.getElementById('modal-title');
   form_title.textContent = "Basic details";
+}
+
+next3.onclick =  function (){
+  let project = getfromSession("project_array")
+  // log("project", project, project.split(',').length)
+  if (project) {
+    CONSTANT.PROJECT_CARD_COUNT = parseInt(project.split('^').length);
+  }
+  if (CONSTANT.PROJECT_CARD_COUNT > 0) {
+    //======== you can also add custom component to swal by uncommenting the following code.
+    //     var wrapper = document.createElement('h1');
+    //     wrapper.innerHTML = 'this is bold text';
+    swal({
+      'title': `You have added ${CONSTANT.PROJECT_CARD_COUNT} cards want to proceed further`,
+      'icon': 'warning',
+      // 'content': {
+      //   'element':wrapper,
+      //   'attributes': {
+      //     'placeholder': "Type your password",
+      //     'type': "password",
+      //   },
+      // },
+      'buttons': [{
+        text: "NO",
+        value: false,
+        visible: true,
+        closeModal: true,
+      },
+      {
+        text: "YES",
+        value: true,
+        visible: true,
+        closeModal: true,
+      }]
+    }).then(value => {
+      if (value) {
+        // form_2();
+        //  change_form('form_2', 'next')
+        form_title = document.getElementById('modal-title');
+        form_title.textContent = "Contact details";
+      }
+    }
+    )
+  }
+  else {
+    swal({
+      text: "You must add atleast one card for you skills.",
+      icon: 'error'
+    })
+
+    // remove the code from below
+    form_2(); change_form('form_2', 'next')
+    form_title = document.getElementById('modal-title');
+    form_title.textContent = "Project details";
+  }
 }
 
 var inputs = document.querySelectorAll('input');
