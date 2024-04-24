@@ -4,6 +4,19 @@
     
 }
 
+function getfromSession(...key_names) {
+  const key = key_names.join('');
+  return sessionStorage.getItem(key);
+}
+
+function setInSession(key_name, value) {
+  return sessionStorage.setItem(key_name, value);
+}
+
+function removeFromSession(key_name) {
+  return sessionStorage.removeItem(key_name);
+}
+
  const CONSTANT={
     SKILL_CARD_COUNT:undefined,
     PROJECT_CARD_COUNT:undefined,

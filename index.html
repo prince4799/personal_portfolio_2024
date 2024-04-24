@@ -152,6 +152,7 @@
 
             <!-- projects section  -->
             <div class="container-fluid mt-5 projects ">
+
             </div>
         </section>
 
@@ -252,21 +253,21 @@
                             <form action="" id="form_3" class="form_3 " aria-expanded="false">
                                 <div id="snackbar"></div>
                                 <div class="d-flex align-item-center justify-content-center">
-                                    <div style="pointer-events:none" class="card-container" id="form-project-card">
-                                        <div class="project-card">
+                                    <div class="card-container" id="form-project-card">
+                                        <div class="project-card" >
                                             <div class="title-icon-desc container-fluid d-flex flex-row">
                                                 <img id='project-form-thumbnail' class="img-thumbnail"
                                                     src="Images/atal_icon.png" alt="ATAL JAL">
                                                 <div class="title-tech ">
-                                                    <h3 class="w-100 text-center" id="project-title">Sample title</h3>
+                                                    <h3 class="text-center" id="project-title">Sample title</h3>
                                                     <!-- <div class="d-flex align-items-center">
                                                     <img class="tech-icons" src="Images/tech-icons/rn.png"><img
                                                         class="tech-icons" src="Images/tech-icons/php.png"><img
                                                         class="tech-icons" src="Images/tech-icons/dot-net.png">
                                                 </div> -->
                                                     <ul class="d-flex align-items-center project-tech-container"
-                                                    id="project-tech-card-form"
-                                                        style="list-style-type: none; overflow: auto; height: 40px; padding: 0px; pointer-events: all;">
+                                                        id="project-tech-card-form"
+                                                        style="list-style-type: none; overflow: auto; height: 40px; padding: 0px;">
                                                         <li class="tech-icons" id="project-tech-card-form-1">Images1
                                                         </li>
                                                         <li class="tech-icons" id="project-tech-card-form-2">Images2
@@ -295,7 +296,8 @@
                                 </div>
                                 <div class="col-md-10 mt-3">
                                     <label>Enter the technologies used in the project</label>
-                                    <ul class="list-group list-group-horizontal project-tech-form "  id="project-form-card-tech">
+                                    <ul class="list-group list-group-horizontal project-tech-form "
+                                        id="project-form-card-tech">
                                         <li class="list-group-item">
                                             <input disabled="true" class="project-tech-name-form mr-sm-2" type="input"
                                                 id="project-tech-name-1" placeholder="Tech-1" maxlength="15"
@@ -319,15 +321,40 @@
                                     placeholder="Little description about the project (not more than 450 letters.)"
                                     name="text"></textarea>
                                 <div class="btn-box">
-                                    <button id="add-project-button" type="button" onclick="add_project_card()">Add New &plus;</button>
+                                    <button id="add-project-button" type="button" onclick="add_project_card()">Add New
+                                        &plus;</button>
                                 </div>
                                 <div class="btn-box">
-                                    <button type="button"
+                                    <button type="button" id="form_3_previous"
                                         onclick="form_2(); change_form('form_3','previous')">&larr;Previous</button>
                                     <button id="form_3_next" type="button" onclick="">Next&rarr;</button>
                                 </div>
                             </form>
+
                             <!-- Contact details section  -->
+                            <form action="" id="form_4" class="form_4 form-hide " aria-expanded="false">
+                                <div class="col-md-12">
+                                     <ul style="list-style: none; " class="w-100 contact-form-ul">
+                                    <li> <input class=" mr-sm-2" type="input" id="github-profile-link"
+                                            placeholder="Enter Github profile link" aria-label="input"></li>
+                                    <li> <input class=" mr-sm-2" type="input" id="linkedIn-profile-link"
+                                            placeholder="Enter LinkedIn profile link" aria-label="input"></li>
+                                    <li> <input class=" mr-sm-2" type="input" id="gmail-link"
+                                            placeholder="Enter your gmail" aria-label="input"></li>
+                                    <li> <input class=" mr-sm-2" type="input" id="contact-link"
+                                            placeholder="Enter your contact no." aria-label="input"></li>
+                                </ul>
+                                </div>
+                               
+
+                                <div class="btn-box">
+                                    <button type="button" onclick="
+                                         change_form('form_4','previous')">&larr; Previous</button>
+                                    <button id="form_4_submit" type="button" onclick="save_contact()">Submit All &checkmark;</button>
+                                </div>
+                            </form>
+
+
                             <!-- contact/skill-pop-up -->
                             <div id="contact-skill-pop-up" class="container-fluid">
                                 <div class="row">

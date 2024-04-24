@@ -1,16 +1,5 @@
 
-function getfromSession(...key_names) {
-    const key = key_names.join('');
-    return sessionStorage.getItem(key);
-}
 
-
-function setInSession(key_name, value) {
-    return sessionStorage.setItem(key_name, value);
-}
-function removeFromSession(key_name) {
-    return sessionStorage.removeItem(key_name);
-}
 
 function saveInSession() {
 
@@ -98,44 +87,53 @@ function form_2() {
 
 
         if (project_img_input.value != '' && project_img_input.value != null && project_img_input.value != undefined) {
-            var request = new XMLHttpRequest();
-            request.open("GET", project_img_input.value + '', true);
-            request.send();
-            request.onload = function () {
-                status = request.status;
-                if (request.status == 200) //if(statusText == OK)
-                {
-                    project_thumbnail.src = project_img_input.value + ''
-                    project_name.disabled = false
-                    project_desription_input.disabled = false;
-                    // project_form_tech.foreach(element=>element.disabled=false)
-                    for (var i = 0; i < project_form_tech.length; i++) {
-                        // Get the children of the current element
-                        // var children = project_form_tech.getElementsByTagName('input');
-                        project_form_tech[i].disabled = false
-                    }
-                } else {
-                    project_thumbnail.src = 'Images/atal_icon.png';
-                    var x = document.getElementById("snackbar");
-                    x.className = "show";
-                    x.innerHTML = "Invalid Image Address"; setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
-                }
+            // var request = new XMLHttpRequest();
+            // request.open("GET", project_img_input.value + '', true);
+            // request.send();
+            // request.onload = function () {
+            //     status = request.status;
+
+            //     if (request.status == 200) //if(statusText == OK)
+            //     {
+            //         project_thumbnail.src = project_img_input.value + ''
+            //         project_name.disabled = false
+            //         project_desription_input.disabled = false;
+            //         // project_form_tech.foreach(element=>element.disabled=false)
+            //         for (var i = 0; i < project_form_tech.length; i++) {
+            //             // Get the children of the current element
+            //             // var children = project_form_tech.getElementsByTagName('input');
+            //             project_form_tech[i].disabled = false
+            //         }
+            //     } else {
+            //         project_thumbnail.src = 'Images/atal_icon.png';
+            //         var x = document.getElementById("snackbar");
+            //         x.className = "show";
+            //         x.innerHTML = "Invalid Image Address"; setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+            //     }
+            // }
+
+            project_thumbnail.src = project_img_input.value + ''
+            project_name.disabled = false
+            project_desription_input.disabled = false;
+            for (var i = 0; i < project_form_tech.length; i++) {
+                project_form_tech[i].disabled = false
             }
+
 
             var inputElement_1 = document.getElementById('project-tech-name-1');
             inputElement_1.addEventListener('input', () => {
                 const input_element = document.getElementById('project-tech-card-form-1')
-                input_element.textContent = inputElement_1.value.toUpperCase()+','
+                input_element.textContent = inputElement_1.value.toUpperCase() + ','
             })
             var inputElement_2 = document.getElementById('project-tech-name-2');
             inputElement_2.addEventListener('input', () => {
                 const input_element = document.getElementById('project-tech-card-form-2')
-                input_element.textContent = inputElement_2.value.toUpperCase()+','
+                input_element.textContent = inputElement_2.value.toUpperCase() + ','
             })
             var inputElement_3 = document.getElementById('project-tech-name-3');
             inputElement_3.addEventListener('input', () => {
                 const input_element = document.getElementById('project-tech-card-form-3')
-                input_element.textContent = inputElement_3.value.toUpperCase()+''
+                input_element.textContent = inputElement_3.value.toUpperCase() + ''
             })
 
             project_desription_input.addEventListener('input', () => {
@@ -160,9 +158,9 @@ function form_2() {
 }
 
 function add_project_card() {
-  const new_card=document.getElementById('form-project-card').outerHTML
-  new_card.toString()
-  populate_project_card(new_card.toString())
+    const new_card = document.getElementById('form-project-card').outerHTML
+    new_card.toString()
+    populate_project_card(new_card.toString())
 }
 
 function populate_project_card(project_arr) {
@@ -178,26 +176,28 @@ function populate_project_card(project_arr) {
             } else {
                 project = project_arr;
             }
-            log("project",project)
+            log("project", project)
             setInSession('project_array', project)
             swal("Card is added successfully", "Now proceed further", "success")
-            const form_3=document.getElementById('form_3');
+            const form_3 = document.getElementById('form_3');
             form_3.reset()
             const inputs = form_3.querySelectorAll('input, textarea');
-            inputs.forEach((item,index)=>{
-                item.disabled=index!==0;
+            inputs.forEach((item, index) => {
+                item.disabled = index !== 0;
             })
             // form_3=
-            let project_card_desc=document.getElementById('project-form-description')
-            let project_card_title=document.getElementById('project-title')
-            let project_card_tech=document.getElementById('project-tech-card-form')
-            project_card_desc.textContent='Sample description enter description below to see the change.'
-            project_card_title.textContent='SAMPLE TITLE'
-            const tech_name_list=project_card_tech.querySelectorAll('li')
-            log("tech_name_list======",tech_name_list)
-            log("project_card_tech",project_card_tech)
-            tech_name_list.forEach((item,index)=>{
-                item.textContent= `Tech-${index+1}`
+            let project_card_desc = document.getElementById('project-form-description')
+            let project_card_title = document.getElementById('project-title')
+            let project_card_tech = document.getElementById('project-tech-card-form')
+            let project_form_thumb = document.getElementById('project-form-thumbnail')
+            project_card_desc.textContent = 'Sample description enter description below to see the change.'
+            project_card_title.textContent = 'SAMPLE TITLE'
+            project_form_thumb.src = 'Images/atal_icon.png'
+            const tech_name_list = project_card_tech.querySelectorAll('li')
+            log("tech_name_list======", tech_name_list)
+            log("project_card_tech", project_card_tech)
+            tech_name_list.forEach((item, index) => {
+                item.textContent = `Tech-${index + 1}`
             })
 
 
@@ -214,14 +214,14 @@ function populate_project_card(project_arr) {
 
 }
 
-function save_project_card(){
+function save_project_card() {
 
-    const save_cards= getfromSession("project_array")
-    if(save_cards){
+    const save_cards = getfromSession("project_array")
+    if (save_cards) {
 
-    }else{
+    } else {
 
-    } 
+    }
 
 }
 

@@ -60,6 +60,36 @@ const contactData = [
   },
 ];
 
+function save_contact() {
+  const git_link = document.getElementById('github-profile-link')
+  const linked_link = document.getElementById('linkedIn-profile-link')
+  const gmail_link = document.getElementById('gmail-link')
+  const phone_link = document.getElementById('contact-link')
+
+
+  //===========  shorter way to directly set the data==============
+  // const contact_links = [
+  //   document.getElementById('github-profile-link').value,
+  //   document.getElementById('linkedIn-profile-link').value,
+  //   document.getElementById('gmail-link').value,
+  //   document.getElementById('contact-link').value]
+
+  const contact_links = [git_link.value, linked_link.value, gmail_link.value, phone_link.value]
+
+  log("contact_links", contact_links)
+
+  setInSession('contact_links', contact_links.join('^'))
+  contact_links.map((item, index) => {
+    if (item.length <= 0) //check here
+    {
+      alert("Contact Details can't be empty.")
+      return
+    }
+
+    item.extra = contact_links[index]
+  })
+}
+
 // Function to create a contact card
 function createCard(imageSrc, imageAlt, extra_details) {
   const card = document.createElement('div');
@@ -82,6 +112,10 @@ function createCard(imageSrc, imageAlt, extra_details) {
   img.src = imageSrc;
   img.alt = imageAlt;
 
+  const link = document.createElement('a');
+  link.target = "_blank";
+  link.href = "";
+
   type_name.textContent = imageAlt;
   type_details.innerText = extra_details;
 
@@ -89,7 +123,8 @@ function createCard(imageSrc, imageAlt, extra_details) {
   contactImgWrapper.appendChild(img)
   card.appendChild(contactImgWrapper);
   type.appendChild(type_name)
-  type.appendChild(type_details)
+  link.appendChild(type_details)
+  type.appendChild(link)
   card.appendChild(type);
   return card;
 }
@@ -97,9 +132,10 @@ function createCard(imageSrc, imageAlt, extra_details) {
 // Function to populate the card in contact list
 function populateCardList(contactData) {
   const cardListContainer = document.getElementById('card-list');
-
-  contactData.forEach(image => {
-    const card = createCard(image.src, image.alt, image.extra);
+  const contacts=getfromSession('contact_links')
+  
+  contactData.forEach((image,index) => {
+    const card = createCard(image.src, image.alt, contacts.length>1?contacts.split('^')[index]:image.extra);
     cardListContainer.appendChild(card);
   });
 }
@@ -194,39 +230,39 @@ function populateSkillCard() {
 
   const skill_card_list = document.getElementsByClassName('skill-card-list')[0]
   let stored_skill_card = sessionStorage.getItem('skill_array')
-  if(stored_skill_card){
-    stored_skill_card =stored_skill_card.split(',')
-    CONSTANT.SKILL_CARD_COUNT=stored_skill_card.length;
-    log("CONSTANT.SKILL_CARD_COUNT > 0",CONSTANT.SKILL_CARD_COUNT )
+  if (stored_skill_card) {
+    stored_skill_card = stored_skill_card.split(',')
+    CONSTANT.SKILL_CARD_COUNT = stored_skill_card.length;
+    log("CONSTANT.SKILL_CARD_COUNT > 0", CONSTANT.SKILL_CARD_COUNT)
   }
   if (CONSTANT.SKILL_CARD_COUNT > 0) {
 
     // log('stored_skill_card', stored_skill_card)
-    stored_skill_card.forEach((item,index) => {
-      log("item ",index,item)
-        const parser = new DOMParser();
-        const element = parser.parseFromString(item, 'text/html');
-        // if (element.childNodes.length > 0) {
-        //   // skill_card_list.appendChild(element.childNodes[0]);
-        //   const firstChild = element.childNodes[0];
-        //   while (firstChild.childNodes.length > 0) {
-        //     const grandChild = firstChild.childNodes[0];
-        //     log("=======>", grandChild)
-        //     if (grandChild.nodeName !== 'body') {
-        //       skill_card_list.appendChild(grandChild);
-        //     }
-        //   }
-        // }
-        const bodyChildren = element.body.childNodes;
+    stored_skill_card.forEach((item, index) => {
+      log("item ", index, item)
+      const parser = new DOMParser();
+      const element = parser.parseFromString(item, 'text/html');
+      // if (element.childNodes.length > 0) {
+      //   // skill_card_list.appendChild(element.childNodes[0]);
+      //   const firstChild = element.childNodes[0];
+      //   while (firstChild.childNodes.length > 0) {
+      //     const grandChild = firstChild.childNodes[0];
+      //     log("=======>", grandChild)
+      //     if (grandChild.nodeName !== 'body') {
+      //       skill_card_list.appendChild(grandChild);
+      //     }
+      //   }
+      // }
+      const bodyChildren = element.body.childNodes;
 
-        if (bodyChildren.length > 0) {
-          for (let i = 0; i < bodyChildren.length; i++) {
+      if (bodyChildren.length > 0) {
+        for (let i = 0; i < bodyChildren.length; i++) {
           const child = bodyChildren[i];
           skill_card_list.appendChild(child.cloneNode(true));
-          }
         }
+      }
 
-       
+
     })
   }
   else {
@@ -310,7 +346,7 @@ const project_details = [
   },
 ]
 
-window.addEventListener('resize', function() {
+window.addEventListener('resize', function () {
   const isMobile = window.innerWidth < 768; // Adjust the breakpoint as needed
 
   if (isMobile) {
@@ -326,7 +362,25 @@ function createProjectCard(project_detail) {
 
   const project_card_container = document.createElement('li');
   // project_card_container.classList.add('col-md-3', 'project-container');
-  project_card_container.classList.add('col-md-3','project-container');
+  project_card_container.classList.add('col-md-3', 'project-container');
+
+  // let saved_project_card = getfromSession('project_array');
+
+  // if (saved_project_card && saved_project_card.length > 0) {
+  //   saved_project_card = saved_project_card.split('^')
+  //   saved_project_card.forEach((item, index) => {
+  //     log("item===========>",index,item)
+  //     // item.removeAttribute('id');
+  //     // const listItems = item.querySelectorAll('li'); //same for 
+  //     // Iterate over each <li> element
+  //     // listItems.forEach(listItem => {
+  //       // Remove the 'id' attribute from each <li> element
+  //       // listItem.removeAttribute('id');
+  //     // });
+  //   })
+  //   // log("=======^><^=======", saved_project_card)
+
+  // }
 
   const card_container = document.createElement('div');
   card_container.classList.add('card-container');
@@ -351,16 +405,16 @@ function createProjectCard(project_detail) {
   title_icon_desc.appendChild(title_tech_container);
 
   const project_name = document.createElement('h3');
-  project_name.classList.add( "text-center")
+  project_name.classList.add("text-center")
   project_name.textContent = project_detail.title;
   title_tech_container.appendChild(project_name);
 
   const project_tech_container = document.createElement('ul');
-  project_tech_container.classList.add("d-flex", "align-items-center",'project-tech-container')
-  project_tech_container.style.listStyleType='none';
-  project_tech_container.style.overflow='auto';
-  project_tech_container.style.height='40px';
-  project_tech_container.style.padding='0'
+  project_tech_container.classList.add("d-flex", "align-items-center", 'project-tech-container')
+  project_tech_container.style.listStyleType = 'none';
+  project_tech_container.style.overflow = 'auto';
+  project_tech_container.style.height = '40px';
+  project_tech_container.style.padding = '0'
   title_tech_container.appendChild(project_tech_container);
 
   const tech_used = project_detail.project_tech_icons.forEach(img => {
@@ -370,7 +424,7 @@ function createProjectCard(project_detail) {
     tech_img.textContent = img;
     project_tech_container.appendChild(tech_img);
   })
-/**<ul class="d-flex align-items-center project-tech-container" style="height: 30px; list-style-type: none; overflow-y: auto; overflow: scroll;"><li class="tech-icons">Images1</li><li class="tech-icons">Images2</li><li class="tech-icons">Images3</li><li class="tech-icons">Images2</li><li class="tech-icons">Images3</li></ul> */
+  /**<ul class="d-flex align-items-center project-tech-container" style="height: 30px; list-style-type: none; overflow-y: auto; overflow: scroll;"><li class="tech-icons">Images1</li><li class="tech-icons">Images2</li><li class="tech-icons">Images3</li><li class="tech-icons">Images2</li><li class="tech-icons">Images3</li></ul> */
 
 
   const project_details = document.createElement('div');
@@ -393,19 +447,72 @@ function populateProjectCard() {
 
   const projects_container = document.getElementsByClassName('projects')[0]
   const heading_container = document.createElement('div');
+  const heading_container_row = document.createElement('div');
   heading_container.classList.add('col-md-12');
+  heading_container_row.classList.add('row');
   const heading = document.createElement('h1');
   heading.textContent = 'Projects';
   heading_container.appendChild(heading);
+  heading_container_row.appendChild(heading_container);
 
   const heading_card_container = document.createElement('ul');
-  heading_card_container.classList.add('project-card-container', 'mt-5', "list-group", "list-group-horizontal-lg");
+  heading_card_container.classList.add('project-card-container', "list-group", "list-group-horizontal-lg");
+  //class="project-card-container list-group list-group-horizontal-lg"
+  //================
 
+  let saved_project_card = getfromSession('project_array');
+
+  projects_container.appendChild(heading_container_row)
+  projects_container.appendChild(heading_card_container)
+
+  if (saved_project_card && saved_project_card.length > 0) {
+
+
+    saved_project_card = saved_project_card.split('^')
+
+    saved_project_card.forEach((item, index) => {
+      const parser = new DOMParser();
+      const element = parser.parseFromString(item, 'text/html');
+      const bodyChildren = element.body.childNodes;
+
+      if (bodyChildren.length > 0) {
+        for (let i = 0; i < bodyChildren.length; i++) {
+          const project_card_container = document.createElement('li');
+          project_card_container.classList.add('col-md-3', 'project-container');
+          const child = bodyChildren[i];
+          project_card_container.appendChild(child.cloneNode(true));
+          heading_card_container.appendChild(project_card_container)
+        }
+      }
+    })
+
+    // for(let i=0; i<CONSTANT.PROJECT_CARD_COUNT;i++){
+    //   const card=document.getElementsByClassName(`project-card${i}`);
+    //   heading_card_container.appendChild(card)
+    // }
+    // projects_container.appendChild()
+
+    // project_card_container.appendChild(card_container);
+
+    // saved_project_card.forEach((item, index) => {
+    //   log("item===========>",index,item)
+    //   item.removeAttribute('id');
+    //   const listItems = item.querySelectorAll('li'); //same for 
+
+    //   listItems.forEach(listItem => {
+    //     listItem.removeAttribute('id');
+    //   });
+    // })
+    // projects_container.appendChild(heading_card_container)
+
+    return;
+  }
+
+  //================
   project_details.forEach(detail => {
     heading_card_container.appendChild(createProjectCard(detail))
   })
-  projects_container.appendChild(heading_container)
-  projects_container.appendChild(heading_card_container)
+
 
 }
 
@@ -435,7 +542,6 @@ textarea.addEventListener('input', () => {
 
 function change_form(form_id, nav_mode) {
   // change_form_title()
-
 
   let valid = document.getElementById(form_id)
   valid.classList.add('form-hide');
@@ -574,8 +680,13 @@ async function fetchSvg(prefix, icon) {
 var next1 = document.getElementById('form_1_next')
 var next2 = document.getElementById('form_2_next')
 var next3 = document.getElementById('form_3_next')
+var submit_form = document.getElementById('form_4_submit')
 
 var previous2 = document.getElementById('form_2_previous')
+var previous3 = document.getElementById('form_3_previous')
+var previous4 = document.getElementById('form_4_previous')
+
+
 var form_title;
 
 next1.onclick = function () {
@@ -645,26 +756,16 @@ previous2.onclick = function () {
   form_title.textContent = "Basic details";
 }
 
-next3.onclick =  function (){
+next3.onclick = function () {
   let project = getfromSession("project_array")
-  // log("project", project, project.split(',').length)
   if (project) {
     CONSTANT.PROJECT_CARD_COUNT = parseInt(project.split('^').length);
   }
   if (CONSTANT.PROJECT_CARD_COUNT > 0) {
-    //======== you can also add custom component to swal by uncommenting the following code.
-    //     var wrapper = document.createElement('h1');
-    //     wrapper.innerHTML = 'this is bold text';
+
     swal({
       'title': `You have added ${CONSTANT.PROJECT_CARD_COUNT} cards want to proceed further`,
       'icon': 'warning',
-      // 'content': {
-      //   'element':wrapper,
-      //   'attributes': {
-      //     'placeholder': "Type your password",
-      //     'type': "password",
-      //   },
-      // },
       'buttons': [{
         text: "NO",
         value: false,
@@ -680,7 +781,7 @@ next3.onclick =  function (){
     }).then(value => {
       if (value) {
         // form_2();
-        //  change_form('form_2', 'next')
+        change_form('form_3', 'next')
         form_title = document.getElementById('modal-title');
         form_title.textContent = "Contact details";
       }
@@ -689,15 +790,17 @@ next3.onclick =  function (){
   }
   else {
     swal({
-      text: "You must add atleast one card for you skills.",
+      text: "You must add atleast one card for you projects.",
       icon: 'error'
     })
 
-    // remove the code from below
-    form_2(); change_form('form_2', 'next')
-    form_title = document.getElementById('modal-title');
-    form_title.textContent = "Project details";
   }
+}
+
+previous3.onclick = function () {
+  change_form('form_3', 'previous')
+  form_title = document.getElementById('modal-title');
+  form_title.textContent = "Skills details";
 }
 
 var inputs = document.querySelectorAll('input');
