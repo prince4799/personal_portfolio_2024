@@ -64,7 +64,7 @@ function save_skill_card(skillArr) {
 
 function search_skill() {
     const search_skill = document.getElementById('search-skill');
-    setInSession('skill_name', search_skill.value)
+    // setInSession('skill_name', search_skill.value)
     if (search_skill.value.length < 1) {
         alert("Please input the skill name.")
         return;

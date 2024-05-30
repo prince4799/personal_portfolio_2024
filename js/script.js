@@ -83,11 +83,12 @@ function save_contact() {
     if (item.length <= 0) //check here
     {
       alert("Contact Details can't be empty.")
-      return
+      return;
     }
 
     item.extra = contact_links[index]
   })
+  // populateCardList(contactData);
 }
 
 // Function to create a contact card
@@ -135,12 +136,13 @@ function populateCardList(contactData) {
   const contacts=getfromSession('contact_links')
   
   contactData.forEach((image,index) => {
-    const card = createCard(image.src, image.alt, contacts.length>1?contacts.split('^')[index]:image.extra);
+    const card = createCard(image.src, image.alt, (contacts && contacts.length>1)?contacts.split('^')[index]:image.extra);
     cardListContainer.appendChild(card);
   });
 }
-// Call the function to populate the card view list with image data
 populateCardList(contactData);
+// Call the function to populate the card view list with image data
+
 
 
 
@@ -486,24 +488,7 @@ function populateProjectCard() {
       }
     })
 
-    // for(let i=0; i<CONSTANT.PROJECT_CARD_COUNT;i++){
-    //   const card=document.getElementsByClassName(`project-card${i}`);
-    //   heading_card_container.appendChild(card)
-    // }
-    // projects_container.appendChild()
-
-    // project_card_container.appendChild(card_container);
-
-    // saved_project_card.forEach((item, index) => {
-    //   log("item===========>",index,item)
-    //   item.removeAttribute('id');
-    //   const listItems = item.querySelectorAll('li'); //same for 
-
-    //   listItems.forEach(listItem => {
-    //     listItem.removeAttribute('id');
-    //   });
-    // })
-    // projects_container.appendChild(heading_card_container)
+    
 
     return;
   }
