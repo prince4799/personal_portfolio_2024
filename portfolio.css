@@ -522,6 +522,7 @@ svg g use {
 
 .thumb-container {
   background-color: var(--thumbnail-icon-container);
+  padding: 15px;
 }
 
 .skill-thumb {

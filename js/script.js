@@ -8,7 +8,9 @@ function switchTheme(color, body_color) {
 
 document.addEventListener('DOMContentLoaded', function () {
   const textElement = document.querySelector('#rotatingText');
-  const texts = ["React Native", "ReactJS", "NodeJS", "Website"];
+  const saved_domain= getfromSession('domain')
+  console.log("ajdfhalkdflkasdjflkajs",saved_domain!=''&& saved_domain!=null && saved_domain!= undefined ? saved_domain.split(','):saved_domain)
+  const texts =saved_domain!=''&& saved_domain!=null && saved_domain!= undefined ? saved_domain.split(','): ["React Native", "ReactJS", "NodeJS", "Website"];
   let index = 0;
 
   function rotateText() {
@@ -42,12 +44,14 @@ function toggleThemes() {
 
 //======= owner-name=======================================
 const nameElement = document.getElementById('owner-name');
-nameElement.textContent = 'Prince Verma';
+const stored_name=getfromSession('name')
+nameElement.textContent = stored_name!=undefined && stored_name!='' && stored_name!=null?stored_name:'Prince Verma';
 
 //======= details-about-me ================================
 
 const about_me = document.getElementById('details-about-me')
-about_me.textContent = 'I am an enthusiastic developer, with a rich experience of over 2-years in mobile app development , web & product design.'
+const saved_about_me= getfromSession('about-yourself');
+about_me.textContent = saved_about_me!= null && saved_about_me!= '' && saved_about_me!= undefined ?saved_about_me:'I am an enthusiastic developer, with a rich experience of over 2-years in mobile app development , web & product design.'
 
 //======= contact card ====================================
 const contactData = [
@@ -238,7 +242,6 @@ function populateSkillCard() {
     log("CONSTANT.SKILL_CARD_COUNT > 0", CONSTANT.SKILL_CARD_COUNT)
   }
   if (CONSTANT.SKILL_CARD_COUNT > 0) {
-
     // log('stored_skill_card', stored_skill_card)
     stored_skill_card.forEach((item, index) => {
       log("item ", index, item)
@@ -488,7 +491,24 @@ function populateProjectCard() {
       }
     })
 
-    
+    // for(let i=0; i<CONSTANT.PROJECT_CARD_COUNT;i++){
+    //   const card=document.getElementsByClassName(`project-card${i}`);
+    //   heading_card_container.appendChild(card)
+    // }
+    // projects_container.appendChild()
+
+    // project_card_container.appendChild(card_container);
+
+    // saved_project_card.forEach((item, index) => {
+    //   log("item===========>",index,item)
+    //   item.removeAttribute('id');
+    //   const listItems = item.querySelectorAll('li'); //same for 
+
+    //   listItems.forEach(listItem => {
+    //     listItem.removeAttribute('id');
+    //   });
+    // })
+    // projects_container.appendChild(heading_card_container)
 
     return;
   }

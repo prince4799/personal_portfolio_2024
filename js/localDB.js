@@ -19,6 +19,8 @@ function saveInSession() {
 function form_1() {
     const name = document.getElementById('Name').value
     setInSession('name', name)
+    const _name=getfromSession("name");
+    console.log("_name",_name)
     const domain_arr = [];
 
     for (i = 1; i <= 5; i++) {
@@ -72,6 +74,17 @@ function search_skill() {
     search_icon(search_skill.value)
 }
 
+// function saveBasicDetails(){
+//     console.log("====>");
+//     // const name =document.getElementById('Name');
+//     // // const domains_fields=document.getElementsByClassName('domain-feilds')
+//     // const domain_arr=[]
+//     // for(let i=1;i<6;i++){
+//     //     const domains=document.getElementById(`domain-${i}`).value
+//     //     if(domains!=null && domains!='' || domains!=undefined)
+//     //         log("domain name is ",domains)
+//     // }
+// }
 
 //======================== PROJECT SECTION =======================
 function form_2() {
