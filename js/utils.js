@@ -1,13 +1,27 @@
- function log(...options){
-    if(true)
+function log(...options) {
+  if (false)
     console.log(...options)
-    
+
 }
 
 function getfromSession(...key_names) {
-  const key = key_names.join('');
+
+  const  key = key_names.join('')
   return sessionStorage.getItem(key);
 }
+
+function getObjectFromSession(...key_names) {
+ 
+  let stored_Obj={}
+   Object.keys(sessionStorage).map(key => {
+    let value=sessionStorage.getItem(key)
+    return stored_Obj[`${key}` ]=value;
+  });
+  
+  return stored_Obj;
+}
+
+
 
 function setInSession(key_name, value) {
   return sessionStorage.setItem(key_name, value);
@@ -17,9 +31,9 @@ function removeFromSession(key_name) {
   return sessionStorage.removeItem(key_name);
 }
 
- const CONSTANT={
-    SKILL_CARD_COUNT:undefined,
-    PROJECT_CARD_COUNT:undefined,
+const CONSTANT = {
+  SKILL_CARD_COUNT: undefined,
+  PROJECT_CARD_COUNT: undefined,
 
 }
 

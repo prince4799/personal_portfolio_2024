@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "firebase": "^10.8.1",
-    "firebase-tools": "^13.4.1"
+    "ngrok": "^5.0.0-beta.2"
   }
 }

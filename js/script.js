@@ -9,7 +9,21 @@ function switchTheme(color, body_color) {
 document.addEventListener('DOMContentLoaded', function () {
   const textElement = document.querySelector('#rotatingText');
   const saved_domain= getfromSession('domain')
-  console.log("ajdfhalkdflkasdjflkajs",saved_domain!=''&& saved_domain!=null && saved_domain!= undefined ? saved_domain.split(','):saved_domain)
+  log("ajdfhalkdflkasdjflkajs",saved_domain!=''&& saved_domain!=null && saved_domain!= undefined ? saved_domain.split(','):saved_domain)
+
+  function hide_buttons_signIn_create(){
+    const is_signed_in= getfromSession('basic_details');
+    const sign_in_button= document.getElementById('signIn');
+    const create_your_own_button= document.getElementById('create_your_own');
+  
+    if(is_signed_in){
+      sign_in_button.style.display='none';
+    }else{
+      create_your_own_button.style.display='none';
+    }
+  }
+  hide_buttons_signIn_create()
+
   const texts =saved_domain!=''&& saved_domain!=null && saved_domain!= undefined ? saved_domain.split(','): ["React Native", "ReactJS", "NodeJS", "Website"];
   let index = 0;
 
@@ -95,6 +109,52 @@ function save_contact() {
   // populateCardList(contactData);
 }
 
+
+ 
+// }
+async function create_your_own(){
+  // data-bs-toggle="modal" data-bs-target="#myModal"
+  // setInSession('basic_details', JSON.stringify(basic_details));
+  const create_button= document.getElementById('create_your_own');
+  try{
+    // Assuming signInWithPopup() is a function that returns a Promise
+     await signInWithPopup().then(result=>{log("result from signinpiiuagsdif",result);
+    if(result?.status && result?.data!=null){
+      
+
+      const toggleAttribute = 'data-bs-toggle';
+      const targetAttribute = 'data-bs-target';
+      const toggleValue = 'modal';
+      const targetValue = '#myModal';
+
+      // Set the attribute values directly instead of creating a new attribute
+      create_button.setAttribute(toggleAttribute, toggleValue);
+      create_button.setAttribute(targetAttribute, targetValue);
+
+      const value_from_session=getfromSession('basic_details');
+      
+      if( value_from_session?.length ==0 || value_from_session==null ){
+        create_button.click()
+        setInSession('basic_details', JSON.stringify(result.data));
+      }else{
+        
+      }
+
+    }
+    else{
+      log("failed to sign in ...",result);
+    }
+    })
+   
+
+   
+  }catch(err){
+    log("err in sign in ",err);
+  }
+
+ 
+}
+
 // Function to create a contact card
 function createCard(imageSrc, imageAlt, extra_details) {
   const card = document.createElement('div');
@@ -146,10 +206,6 @@ function populateCardList(contactData) {
 }
 populateCardList(contactData);
 // Call the function to populate the card view list with image data
-
-
-
-
 
 //skill-card-list
 const skill_details = [
@@ -356,10 +412,10 @@ window.addEventListener('resize', function () {
 
   if (isMobile) {
     // Apply mobile-specific styles or functionality
-    console.log('Mobile view:', window.innerWidth);
+    log('Mobile view:', window.innerWidth);
   } else {
     // Apply desktop-specific styles or functionality
-    console.log('Desktop view:', window.innerWidth);
+    log('Desktop view:', window.innerWidth);
   }
 });
 
@@ -595,7 +651,7 @@ async function search_icon(icon_name) {
         // Wait for all svg_promises to resolve
         const svg_data = await Promise.all(svg_promises);
         new_icon_array.push(...svg_data);
-        console.log("length of svg arr", new_icon_array.length);
+        log("length of svg arr", new_icon_array.length);
       }
       else {
         alert(`Unable to find the icon of ${icon_name} please try another.`)
@@ -695,9 +751,25 @@ var previous4 = document.getElementById('form_4_previous')
 var form_title;
 
 next1.onclick = function () {
-  form_1(); change_form('form_1', 'next')
+  const is_signed_in= getfromSession('basic_details');
+  log("is_signed",is_signed_in)
+  if(is_signed_in==null){
+    swal({
+      'title': `You have not signed in. To create your portfolio signin first.`,
+      'icon': 'error',
+      'buttons': {
+        text: "OK",
+        value: false,
+       
+      },
+      
+    })
+  }else{
+    form_1(); change_form('form_1', 'next')
   form_title = document.getElementById('modal-title');
   form_title.textContent = "Skills details";
+  }
+  
 }
 
 next2.onclick = function () {

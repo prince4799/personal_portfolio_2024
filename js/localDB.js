@@ -146,7 +146,7 @@ function form_2() {
             var inputElement_3 = document.getElementById('project-tech-name-3');
             inputElement_3.addEventListener('input', () => {
                 const input_element = document.getElementById('project-tech-card-form-3')
-                input_element.textContent = inputElement_3.value.toUpperCase() + ''
+                input_element.textContent= inputElement_3.value.toUpperCase() + ''
             })
 
             project_desription_input.addEventListener('input', () => {

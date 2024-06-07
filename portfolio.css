@@ -441,6 +441,7 @@ svg g use {
   /* height: ; */
   padding-top: 40px;
   padding-bottom: 40px;
+  padding-inline: 40px;
 }
 
 .section-2 h1 {
@@ -581,7 +582,7 @@ text-shadow: 0 0 5px #ffee1052; */
   /* padding-left: 30px !important;  adjust for mobile */
   /* padding-inline: 70px !important; */
   margin-bottom: 0 !important;
-  padding-inline: 10px !important;
+  padding-inline: 40px !important;
 
 }
 
@@ -974,6 +975,22 @@ text-shadow: 0 0 5px #ffee1052; */
   }
 }
 
+#create_your_own:hover {
+  /* background-color: yellow; */
+  cursor: pointer;
+}
+
+#create_your_own{
+  color: var(--primary);
+}
+
+#signIn:hover {
+  /* background-color: yellow; */
+  cursor: pointer;
+}
+#signIn {
+  color: var(--primary);
+}
 
 
 .modal-dialog {
