@@ -52,7 +52,7 @@ text-decoration: none !important;
 
 
 
-header div div {
+/* header div div {
   justify-content: space-between;
 }
 
@@ -84,23 +84,18 @@ nav ul li a {
 
 .nav-bar-container {
   background-color: #fff;
-  /* margin: 12px; */
+  /* margin: 12px; 
   justify-content: center;
   display: flex;
 }
 
-.color-palette {
-  flex-direction: column;
-  padding: 5px !important;
-  /* margin-left: 150px; */
-  /* border: 1px solid #000; */
-}
+
 
 .hamburger {
   display: inline-block;
   cursor: pointer;
   width: 50px;
-  /* height: 50px; */
+  /* height: 50px; 
   overflow: hidden;
 
 }
@@ -111,10 +106,133 @@ nav ul li a {
   background-color: #333;
   margin: 6px 0;
   transition: 0.5s ease;
+} */
+
+/* Styles for the header */
+header {
+  background-color: #fff;
 }
 
+.logo h1 {
+  font-size: 2rem; /* Adjusted for better visibility */
+  margin: 0;
+}
+
+.nav-bar-container {
+  justify-content: center;
+  display: flex;
+  padding: 10px 0;
+}
+
+.navbar-nav .nav-item {
+  /* padding: 8px 16px; */
+}
+
+
+.input-group-text , .form-control{
+  border-radius: 0 !important;
+}
+
+
+.navbar-nav .nav-link {
+  text-decoration: none;
+  font-size: 1.1rem; /* Adjusted for better readability */
+  color: var(--primary);
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #007bff; /* Add a hover color */
+}
+
+.input-group{
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#search-mail:hover{
+  cursor: progress !important;
+}
+
+/* .search-text-input{
+  di;
+} */
+
+.theme-options.hidden {
+  display: none; /* Initially hidden */
+  /* position: absolute; */
+  /* top: 50px; */
+  /* right: 50px; */
+  background: #fff;
+  border: 1px solid #ddd;
+  /* padding: 10px; */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.theme-options ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.theme-options ul li {
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.theme-options ul li:hover {
+  background-color: #f0f0f0;
+}
+
+/* Responsive design */
+@media (max-width: 767.98px) {
+  .logo h1 {
+    font-size: 1.5rem; /* Slightly smaller font for mobile */
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+  }
+
+  .nav-bar {
+    padding: 0 15px;
+  }
+
+  .navbar-toggler {
+    margin-left: auto;
+  }
+
+  .nav-item.d-md-none {
+    display: block;
+  }
+}
+
+@media (min-width: 768px) {
+  .navbar-brand {
+    margin-right: auto;
+  }
+  .navbar-toggler {
+    margin-left: auto;
+  }
+  .d-flex.align-items-center {
+    margin-left: auto;
+  }
+  .thumb-container{
+    margin-left: 0 !important;
+  }
+}
+
+.search-field:focus{
+  border: 0.5px solid var(--primary) !important;
+  box-shadow: none !important;
+  
+}
+
+
+
 /* Rotate first and third bars to make them diagonal */
-.hamburger.active .bar:nth-child(1) {
+/* .hamburger.active .bar:nth-child(1) {
   transform: rotate(-39deg) translate(-8px, 8px);
 }
 
@@ -125,8 +243,22 @@ nav ul li a {
 .hamburger.active .bar:nth-child(3) {
   transform: rotate(39deg) translate(-7px, -7px);
 
+} */
+
+.theme-switch{
+  height: 40px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.dropdown-toggle::after {
+  display: none !important;
+}
+/* .dropdown-toggle::after {
+  content: none;
+}
+.dropdown-toggle::after {
+  content: none;
+} */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -146,7 +278,12 @@ nav ul li a {
     transform: translateY(0);
   }
 }
-
+.color-palette {
+  flex-direction: column;
+  padding: 5px !important;
+  /* margin-left: 150px; */
+  /* border: 1px solid #000; */
+}
 
 .theme-options {
   opacity: 0;

@@ -33,7 +33,7 @@ function form_1() {
     }
     setInSession('domain', domain_arr)
     const aboutYourself = document.getElementById('aboutYourself').value
-    setInSession('about-yourself', aboutYourself)
+    setInSession('about_yourself', aboutYourself)
 }
 
 function save_skill_card(skillArr) {

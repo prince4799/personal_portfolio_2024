@@ -7,19 +7,22 @@ function switchTheme(color, body_color) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+  // log("=====<><><><>")
   const textElement = document.querySelector('#rotatingText');
   const saved_domain= getfromSession('domain')
-  log("ajdfhalkdflkasdjflkajs",saved_domain!=''&& saved_domain!=null && saved_domain!= undefined ? saved_domain.split(','):saved_domain)
 
   function hide_buttons_signIn_create(){
     const is_signed_in= getfromSession('basic_details');
     const sign_in_button= document.getElementById('signIn');
     const create_your_own_button= document.getElementById('create_your_own');
+    const search_mail= document.getElementsByClassName('search-text-input')[0]
   
-    if(is_signed_in){
+    if(is_signed_in &&  sign_in_button?.style){
       sign_in_button.style.display='none';
     }else{
-      create_your_own_button.style.display='none';
+      if(create_your_own_button?.style)
+     create_your_own_button.style.display='none';
+      search_mail.style.display='none';
     }
   }
   hide_buttons_signIn_create()
@@ -45,15 +48,11 @@ document.addEventListener('DOMContentLoaded', function () {
   setInterval(rotateText, 3000); // Rotate text every 3 seconds
 });
 
-document.querySelector('.hamburger').addEventListener('click', function () {
-  this.classList.toggle('active');
 
-});
 
 function toggleThemes() {
   var themeOptions = document.getElementById('themeOptions');
-  themeOptions.classList.toggle('show');
-
+    themeOptions.classList.toggle
 }
 
 //======= owner-name=======================================
@@ -64,8 +63,10 @@ nameElement.textContent = stored_name!=undefined && stored_name!='' && stored_na
 //======= details-about-me ================================
 
 const about_me = document.getElementById('details-about-me')
-const saved_about_me= getfromSession('about-yourself');
+const saved_about_me= getfromSession('about_yourself');
 about_me.textContent = saved_about_me!= null && saved_about_me!= '' && saved_about_me!= undefined ?saved_about_me:'I am an enthusiastic developer, with a rich experience of over 2-years in mobile app development , web & product design.'
+
+
 
 //======= contact card ====================================
 const contactData = [
@@ -407,17 +408,6 @@ const project_details = [
   },
 ]
 
-window.addEventListener('resize', function () {
-  const isMobile = window.innerWidth < 768; // Adjust the breakpoint as needed
-
-  if (isMobile) {
-    // Apply mobile-specific styles or functionality
-    log('Mobile view:', window.innerWidth);
-  } else {
-    // Apply desktop-specific styles or functionality
-    log('Desktop view:', window.innerWidth);
-  }
-});
 
 function createProjectCard(project_detail) {
 
@@ -425,23 +415,7 @@ function createProjectCard(project_detail) {
   // project_card_container.classList.add('col-md-3', 'project-container');
   project_card_container.classList.add('col-md-3', 'project-container');
 
-  // let saved_project_card = getfromSession('project_array');
 
-  // if (saved_project_card && saved_project_card.length > 0) {
-  //   saved_project_card = saved_project_card.split('^')
-  //   saved_project_card.forEach((item, index) => {
-  //     log("item===========>",index,item)
-  //     // item.removeAttribute('id');
-  //     // const listItems = item.querySelectorAll('li'); //same for 
-  //     // Iterate over each <li> element
-  //     // listItems.forEach(listItem => {
-  //       // Remove the 'id' attribute from each <li> element
-  //       // listItem.removeAttribute('id');
-  //     // });
-  //   })
-  //   // log("=======^><^=======", saved_project_card)
-
-  // }
 
   const card_container = document.createElement('div');
   card_container.classList.add('card-container');
@@ -638,7 +612,6 @@ async function search_icon(icon_name) {
     const response = await fetch(url);
     if (response.status == 200) {
       const data = await response.json();
-      log("length of svg arr", data);
 
       if (data.total && data.total > 0) {
         const contact_skill_pop_up = document.getElementById('contact-skill-pop-up')
@@ -651,7 +624,6 @@ async function search_icon(icon_name) {
         // Wait for all svg_promises to resolve
         const svg_data = await Promise.all(svg_promises);
         new_icon_array.push(...svg_data);
-        log("length of svg arr", new_icon_array.length);
       }
       else {
         alert(`Unable to find the icon of ${icon_name} please try another.`)
@@ -683,7 +655,7 @@ async function search_icon(icon_name) {
 
         let html = skill_card_arr.map((item, index) => {
           return `<div class="col-md-3 skill-card rounded">
-                    <div class="d-flex thumb-container thumb-container-selected align-items-center justify-content-center">
+                    <div class="d-flex thumb-container thumb-container-selected align-items-center justify-content-center ml-0">
                       ${item.element}
                     </div>
                     <div class="skill-desc-container">
@@ -880,12 +852,24 @@ previous3.onclick = function () {
   form_title.textContent = "Skills details";
 }
 
+submit_form.onclick= function (){
+  save_contact()
+  save_data_in_firebase()
+  let old_form = document.getElementById('form_4');
+  old_form.classList.remove('form-show')
+  old_form.classList.add('form-hide');
+  let main_form = document.getElementById('myModal');
+  main_form.classList.remove('show')
+  main_form.style.setProperty('display','none')
+  
+}
+
 var inputs = document.querySelectorAll('input');
 
 // Attach event listener to each input element
 inputs.forEach(function (input) {
   input.addEventListener('keydown', function (event) {
-    if (event.keyCode === 13) {
+    if (event?.keyCode === 13) {
       event.preventDefault();
     }
   });
