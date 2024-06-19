@@ -15,13 +15,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const is_signed_in= getfromSession('basic_details');
     const sign_in_button= document.getElementById('signIn');
     const create_your_own_button= document.getElementById('create_your_own');
-    const search_mail= document.getElementsByClassName('search-text-input')[0]
-  
+    const search_mail= document.getElementById('search-user-button')
     if(is_signed_in &&  sign_in_button?.style){
       sign_in_button.style.display='none';
     }else{
       if(create_your_own_button?.style)
      create_your_own_button.style.display='none';
+    if(window.location.pathname.includes('search')== false)
       search_mail.style.display='none';
     }
   }
