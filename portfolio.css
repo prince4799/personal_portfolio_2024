@@ -228,6 +228,9 @@ header {
   box-shadow: none !important;
   
 }
+.nav-item:hover{
+  cursor: pointer;
+}
 
 
 
@@ -578,7 +581,7 @@ svg g use {
   /* height: ; */
   padding-top: 40px;
   padding-bottom: 40px;
-  padding-inline: 40px;
+  padding-inline: 10px;
 }
 
 .section-2 h1 {
@@ -719,17 +722,18 @@ text-shadow: 0 0 5px #ffee1052; */
   /* padding-left: 30px !important;  adjust for mobile */
   /* padding-inline: 70px !important; */
   margin-bottom: 0 !important;
-  padding-inline: 40px !important;
+  padding: 0 !important;
+  /* padding-inline: 40px !important; */
 
 }
 
 .projects h1 {
-  /* padding-inline: 10px !important; */
+  padding-inline: 20px !important;
 }
 
 .project-container {
   /* margin-inline:2%;   */
-  /* margin-block:4%; */
+  margin-block:4%;
   width: 300px;
   
 
@@ -739,12 +743,9 @@ text-shadow: 0 0 5px #ffee1052; */
 .project-card-container {
   overflow-y: hidden;
   margin-top: 0 !important;
-  /* padding: 50px; */
   margin-left: 0px !important;
-  /* padding-left: 50px !important; */
   display: flex;
   align-items: center;
-  /* justify-content: space-between; */
   padding-block: 50px !important;
   padding-inline: 20px !important;
 }

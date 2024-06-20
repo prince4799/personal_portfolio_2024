@@ -8,63 +8,62 @@ function switchTheme(color, body_color) {
 
 document.addEventListener('DOMContentLoaded', function () {
   // log("=====<><><><>")
-  const textElement = document.querySelector('#rotatingText');
-  const saved_domain= getfromSession('domain')
 
-  function hide_buttons_signIn_create(){
-    const is_signed_in= getfromSession('basic_details');
-    const sign_in_button= document.getElementById('signIn');
-    const create_your_own_button= document.getElementById('create_your_own');
-    const search_mail= document.getElementById('search-user-button')
-    if(is_signed_in &&  sign_in_button?.style){
-      sign_in_button.style.display='none';
-    }else{
-      if(create_your_own_button?.style)
-     create_your_own_button.style.display='none';
-    if(window.location.pathname.includes('search')== false)
-      search_mail.style.display='none';
+
+  function hide_buttons_signIn_create() {
+    const is_signed_in = getfromSession('basic_details');
+    const sign_in_button = document.getElementById('signIn');
+    const create_your_own_button = document.getElementById('create_your_own');
+    const search_mail = document.getElementById('search-user-button')
+    if (is_signed_in && sign_in_button?.style) {
+      sign_in_button.style.display = 'none';
+    } else {
+      if (create_your_own_button?.style)
+        create_your_own_button.style.display = 'none';
+      if (window.location.pathname.includes('search') == false)
+        search_mail.style.display = 'none';
     }
   }
   hide_buttons_signIn_create()
-
-  const texts =saved_domain!=''&& saved_domain!=null && saved_domain!= undefined ? saved_domain.split(','): ["React Native", "ReactJS", "NodeJS", "Website"];
-  let index = 0;
-
-  function rotateText() {
-    textElement.classList.remove('reveal-text'); // Remove class to reset animation
-    setTimeout(() => {
-      textElement.innerText = texts[index];
-      textElement.classList.add('reveal-text'); // Add class to reapply animation
-      index = (index + 1) % texts.length;
-      if (color_of_reveal_text == '') {
-        textElement.style.color = '#28FFBF'
-      } else {
-        textElement.style.color = color_of_reveal_text
-      }
-    }, 1000); // Wait for animation duration before updating text
-  }
-
   rotateText(); // Initial text
   setInterval(rotateText, 3000); // Rotate text every 3 seconds
 });
 
+const textElement = document.getElementById('rotatingText');
+const saved_domain = getfromSession('domain')
+
+const texts = saved_domain != '' && saved_domain != null && saved_domain != undefined ? saved_domain.split(',') : ["React Native", "ReactJS", "NodeJS", "Website"];
+let index = 0;
+function rotateText() {
+  textElement.classList.remove('reveal-text'); // Remove class to reset animation
+  setTimeout(() => {
+    textElement.innerText = texts[index];
+    textElement.classList.add('reveal-text'); // Add class to reapply animation
+    index = (index + 1) % texts.length;
+    if (color_of_reveal_text == '') {
+      textElement.style.color = '#28FFBF'
+    } else {
+      textElement.style.color = color_of_reveal_text
+    }
+  }, 1000); // Wait for animation duration before updating text
+}
 
 
 function toggleThemes() {
   var themeOptions = document.getElementById('themeOptions');
-    themeOptions.classList.toggle
+  themeOptions.classList.toggle
 }
 
 //======= owner-name=======================================
 const nameElement = document.getElementById('owner-name');
-const stored_name=getfromSession('name')
-nameElement.textContent = stored_name!=undefined && stored_name!='' && stored_name!=null?stored_name:'Prince Verma';
+const stored_name = getfromSession('name')
+nameElement.textContent = stored_name != undefined && stored_name != '' && stored_name != null ? stored_name : 'Prince Verma';
 
 //======= details-about-me ================================
 
 const about_me = document.getElementById('details-about-me')
-const saved_about_me= getfromSession('about_yourself');
-about_me.textContent = saved_about_me!= null && saved_about_me!= '' && saved_about_me!= undefined ?saved_about_me:'I am an enthusiastic developer, with a rich experience of over 2-years in mobile app development , web & product design.'
+const saved_about_me = getfromSession('about_yourself');
+about_me.textContent = saved_about_me != null && saved_about_me != '' && saved_about_me != undefined ? saved_about_me : 'I am an enthusiastic developer, with a rich experience of over 2-years in mobile app development , web & product design.'
 
 
 
@@ -111,49 +110,50 @@ function save_contact() {
 }
 
 
- 
+
 // }
-async function create_your_own(){
+async function create_your_own() {
   // data-bs-toggle="modal" data-bs-target="#myModal"
   // setInSession('basic_details', JSON.stringify(basic_details));
-  const create_button= document.getElementById('create_your_own');
-  try{
+  const create_button = document.getElementById('create_your_own');
+  try {
     // Assuming signInWithPopup() is a function that returns a Promise
-     await signInWithPopup().then(result=>{log("result from signinpiiuagsdif",result);
-    if(result?.status && result?.data!=null){
-      
+    await signInWithPopup().then(result => {
+      log("result from signinpiiuagsdif", result);
+      if (result?.status && result?.data != null) {
 
-      const toggleAttribute = 'data-bs-toggle';
-      const targetAttribute = 'data-bs-target';
-      const toggleValue = 'modal';
-      const targetValue = '#myModal';
 
-      // Set the attribute values directly instead of creating a new attribute
-      create_button.setAttribute(toggleAttribute, toggleValue);
-      create_button.setAttribute(targetAttribute, targetValue);
+        const toggleAttribute = 'data-bs-toggle';
+        const targetAttribute = 'data-bs-target';
+        const toggleValue = 'modal';
+        const targetValue = '#myModal';
 
-      const value_from_session=getfromSession('basic_details');
-      
-      if( value_from_session?.length ==0 || value_from_session==null ){
-        create_button.click()
-        setInSession('basic_details', JSON.stringify(result.data));
-      }else{
-        
+        // Set the attribute values directly instead of creating a new attribute
+        create_button.setAttribute(toggleAttribute, toggleValue);
+        create_button.setAttribute(targetAttribute, targetValue);
+
+        const value_from_session = getfromSession('basic_details');
+
+        if (value_from_session?.length == 0 || value_from_session == null) {
+          create_button.click()
+          setInSession('basic_details', JSON.stringify(result.data));
+        } else {
+
+        }
+
       }
-
-    }
-    else{
-      log("failed to sign in ...",result);
-    }
+      else {
+        log("failed to sign in ...", result);
+      }
     })
-   
 
-   
-  }catch(err){
-    log("err in sign in ",err);
+
+
+  } catch (err) {
+    log("err in sign in ", err);
   }
 
- 
+
 }
 
 // Function to create a contact card
@@ -198,10 +198,10 @@ function createCard(imageSrc, imageAlt, extra_details) {
 // Function to populate the card in contact list
 function populateCardList(contactData) {
   const cardListContainer = document.getElementById('card-list');
-  const contacts=getfromSession('contact_links')
-  
-  contactData.forEach((image,index) => {
-    const card = createCard(image.src, image.alt, (contacts && contacts.length>1)?contacts.split('^')[index]:image.extra);
+  const contacts = getfromSession('contact_links')
+
+  contactData.forEach((image, index) => {
+    const card = createCard(image.src, image.alt, (contacts && contacts.length > 1) ? contacts.split('^')[index] : image.extra);
     cardListContainer.appendChild(card);
   });
 }
@@ -247,15 +247,10 @@ const skill_details = [
   },
   {
     "img": "Images/tech-icons/mongoDb.png",
-    // "img":"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/yugabytedb/yugabytedb-original.svg",
     "name": "MongoDB",
     "details": "Working with react native on various project"
   },
-  // {
-  //   "img":"https://mdbcdn.b-cdn.net/img/new/standard/city/042.webp",
-  //   // "name":"MongoDB",
-  //   "details":"Working with react native on various project"
-  // },
+  
 ]
 //https://mdbcdn.b-cdn.net/img/new/standard/city/042.webp
 function createSkillcard(skill_img, skill_name, skill_detail) {
@@ -392,8 +387,7 @@ const project_details = [
   Ut similique nobis adipisci, impedit
   Numquam ipsa sit perspiciatis! Corporis error, voluptates quas sapiente, commodi`,
     project_img: "Images/jreda_icon.png",
-    project_tech_icons: ["Images/tech-icons/rn.png", "Images/tech-icons/php.png", "Images/tech-icons/dot-net.png"]
-  },
+    project_tech_icons: ["Images1", "Images2", "Images3"]  },
   {
     title: "JREDA",
     project_details: `Lutem architecto animi illum facere, dicta aspernatur aliquid saepe vero
@@ -404,8 +398,7 @@ const project_details = [
   Ut similique nobis adipisci, impedit
   Numquam ipsa sit perspiciatis! Corporis error, voluptates quas sapiente, commodi`,
     project_img: "Images/jreda_icon.png",
-    project_tech_icons: ["Images/tech-icons/rn.png", "Images/tech-icons/php.png", "Images/tech-icons/dot-net.png"]
-  },
+    project_tech_icons: ["Images1", "Images2", "Images3"]  },
 ]
 
 
@@ -480,9 +473,24 @@ function createProjectCard(project_detail) {
 
 function populateProjectCard() {
 
+  const userAgent = window.navigator.userAgent;
+  const mobileRegex = /Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|webOS)/i;
+
+  const deviceType= mobileRegex.test(userAgent);
+
   const projects_container = document.getElementsByClassName('projects')[0]
   const heading_container = document.createElement('div');
   const heading_container_row = document.createElement('div');
+ 
+ // if the device is mobile
+ if(deviceType== 'Mobile Device'){
+   heading_container.style.width='80%'
+  heading_container.style.alignSelf='center'
+  heading_container.style.marginInline='10%'
+ }
+ 
+
+  heading_container_row.classList.add('col-md-12')
   heading_container.classList.add('col-md-12');
   heading_container_row.classList.add('row');
   const heading = document.createElement('h1');
@@ -723,25 +731,25 @@ var previous4 = document.getElementById('form_4_previous')
 var form_title;
 
 next1.onclick = function () {
-  const is_signed_in= getfromSession('basic_details');
-  log("is_signed",is_signed_in)
-  if(is_signed_in==null){
+  const is_signed_in = getfromSession('basic_details');
+  log("is_signed", is_signed_in)
+  if (is_signed_in == null) {
     swal({
       'title': `You have not signed in. To create your portfolio signin first.`,
       'icon': 'error',
       'buttons': {
         text: "OK",
         value: false,
-       
+
       },
-      
+
     })
-  }else{
+  } else {
     form_1(); change_form('form_1', 'next')
-  form_title = document.getElementById('modal-title');
-  form_title.textContent = "Skills details";
+    form_title = document.getElementById('modal-title');
+    form_title.textContent = "Skills details";
   }
-  
+
 }
 
 next2.onclick = function () {
@@ -852,7 +860,7 @@ previous3.onclick = function () {
   form_title.textContent = "Skills details";
 }
 
-submit_form.onclick= function (){
+submit_form.onclick = function () {
   save_contact()
   save_data_in_firebase()
   let old_form = document.getElementById('form_4');
@@ -860,8 +868,8 @@ submit_form.onclick= function (){
   old_form.classList.add('form-hide');
   let main_form = document.getElementById('myModal');
   main_form.classList.remove('show')
-  main_form.style.setProperty('display','none')
-  
+  main_form.style.setProperty('display', 'none')
+
 }
 
 var inputs = document.querySelectorAll('input');
