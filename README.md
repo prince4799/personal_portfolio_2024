@@ -7,15 +7,18 @@
     - Google authentication.
     - Global search.
     - Global sharing.
-# ngrok token config 
+# Installing the ngrok 
+  - ![Follow the link to setup ngrok] (https://ngrok.com/docs/getting-started/?os=macos)
+## ngrok token config 
  - ngrok config add-authtoken 2hOsPtR9YsjJE0saSuFVqARoa6x_MuSupWm38WgboAF4A5gn
 
- # ngrok run localhost 
+ ## ngrok run localhost 
   - ngrok http http://localhost:5500  
-
-# localtunnel run command
+# Installing the localtunnel
+  - npm install -g localtunnel
+## localtunnel run command
     - lt --port 5500
-# localtunnel to get the password
+## localtunnel to get the password
     -curl ipv4.icanhazip.com  
             OR
     -wget -q -O - ipv4.icanhazip.com
