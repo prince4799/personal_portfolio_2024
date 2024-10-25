@@ -8,7 +8,7 @@
     - Global search.
     - Global sharing.
 # Installing the ngrok 
-  - ![Follow the link to setup ngrok] (https://ngrok.com/docs/getting-started/?os=macos)
+[Follow the link to set up ngrok](https://ngrok.com/docs/getting-started/?os=macos)
 ## ngrok token config 
  - ngrok config add-authtoken 2hOsPtR9YsjJE0saSuFVqARoa6x_MuSupWm38WgboAF4A5gn
 
